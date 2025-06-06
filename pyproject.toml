@@ -1,3 +1,11 @@
+[project]
+dependencies = []
+description = "Add your description here"
+name = "python-django-api-template"
+readme = "README.md"
+requires-python = ">=3.13"
+version = "0.1.0"
+
 [tool.ruff]
 fix = true
 ignore = []
@@ -35,3 +43,9 @@ disallow_untyped_defs = true
 files = ["src"]
 python_version = "3.13"
 strict = true
+
+[dependency-groups]
+dev = [
+    "mypy>=1.16.0",
+    "ruff>=0.11.13",
+]

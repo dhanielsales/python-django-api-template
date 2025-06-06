@@ -6,4 +6,11 @@ lint:
 typecheck:
 	mypy src
 
-check: lint typecheck
+check:
+	lint typecheck
+
+venv:
+	uv venv --python=3.13
+
+install:
+	uv sync
