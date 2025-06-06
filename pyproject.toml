@@ -1,0 +1,37 @@
+[tool.ruff]
+fix = true
+ignore = []
+line-length = 88
+select = [
+  "E", # pycodestyle errors
+  "F", # pyflakes
+  "I", # isort
+  "D", # pydocstyle
+  "ANN", # flake8-annotations (type hints)
+  "B", # flake8-bugbear
+  "UP", # pyupgrade
+  "S", # flake8-bandit
+]
+src = ["src"]
+target-version = "py313"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint]
+# Require type annotations for all functions and methods
+extend-select = ["ANN"]
+# Make missing type annotations an error
+
+[tool.ruff.lint.flake8-annotations]
+# allow-star-arg-any = false # Test with this in future
+allow-star-arg-any = false
+mypy-init-return = true
+suppress-dummy-args = false
+
+[tool.mypy]
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+files = ["src"]
+python_version = "3.13"
+strict = true
