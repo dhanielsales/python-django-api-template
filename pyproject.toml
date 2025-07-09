@@ -1,15 +1,35 @@
 [project]
-dependencies = []
+
+dependencies = [
+  "pydantic>=2.11.7",
+]
 description = "Add your description here"
 name = "python-django-api-template"
 readme = "README.md"
 requires-python = ">=3.13"
 version = "0.1.0"
 
+[dependency-groups]
+dev = [
+  "django-stubs[compatible-mypy]>=5.2.1",
+  "mypy>=1.16.0",
+  "ruff>=0.11.13",
+]
+
+dependencies = [
+  "django==5.2.2",
+  "djangorestframework>=3.16.0",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "src.django.config.settings"
+addopts = "-ra"
+python_files = "test_*.py"
+
 [tool.ruff]
 fix = true
-ignore = []
-line-length = 88
+ignore = ["D100"]
+line-length = 90
 select = [
   "E", # pycodestyle errors
   "F", # pyflakes
@@ -41,11 +61,9 @@ suppress-dummy-args = false
 disallow_incomplete_defs = true
 disallow_untyped_defs = true
 files = ["src"]
+plugins = ["mypy_django_plugin.main"]
 python_version = "3.13"
 strict = true
 
-[dependency-groups]
-dev = [
-    "mypy>=1.16.0",
-    "ruff>=0.11.13",
-]
+[tool.django-stubs]
+django_settings_module = "config.settings"
