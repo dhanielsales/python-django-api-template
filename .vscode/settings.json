@@ -3,18 +3,34 @@
   "ruff.enable": true,
   "ruff.nativeServer": "on",
   "ruff.configuration": "pyproject.toml",
-  // Pyright (built-in type checker)
+  // Python analysis settings
   "python.analysis.typeCheckingMode": "strict",
-  // Optionally, enable mypy if you want both
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.extraPaths": [
+    "./src"
+  ],
+  "python.defaultInterpreterPath": "./.venv/bin/python",
+  // More specific Django overrides
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportUnknownVariableType": "warning",
+    "reportUnknownMemberType": "warning",
+    "reportMissingTypeStubs": "none",
+    "reportUnknownArgumentType": "information",
+    "reportGeneralTypeIssues": "warning"
+  },
+  // Django-specific settings
+  "python.analysis.stubPath": "./typings",
+  "python.analysis.useLibraryCodeForTypes": true,
+  // Linting settings
   "python.linting.enabled": true,
   "python.linting.mypyEnabled": true,
-  // Formating
+  // Formatting
   "[python]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit",
       "source.organizeImports": "explicit"
-    },
+    }
   }
 }

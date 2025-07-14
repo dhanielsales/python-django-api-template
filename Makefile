@@ -14,3 +14,6 @@ venv:
 
 install:
 	uv sync
+
+makemigrations:
+	cd src/django && uv run python manage.py makemigrations
