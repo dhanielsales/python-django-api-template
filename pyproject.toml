@@ -1,6 +1,9 @@
 [project]
 
 dependencies = [
+  "django>=5.2.2",
+  "django-stubs-ext>=5.2.1",
+  "djangorestframework>=3.16.0",
   "pydantic>=2.11.7",
 ]
 description = "Add your description here"
@@ -11,14 +14,10 @@ version = "0.1.0"
 
 [dependency-groups]
 dev = [
-  "django-stubs[compatible-mypy]>=5.2.1",
+  "django-stubs-ext==5.2.1",
+  "django-stubs[compatible-mypy]==5.2.1",
   "mypy>=1.16.0",
   "ruff>=0.11.13",
-]
-
-dependencies = [
-  "django==5.2.2",
-  "djangorestframework>=3.16.0",
 ]
 
 [tool.pytest.ini_options]
@@ -66,4 +65,10 @@ python_version = "3.13"
 strict = true
 
 [tool.django-stubs]
-django_settings_module = "config.settings"
+django_settings_module = "src.django.config.settings"
+
+[[tool.mypy.overrides]]
+ignore_errors = true
+module = [
+  "__project__.*",
+]
