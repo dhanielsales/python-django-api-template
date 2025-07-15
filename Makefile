@@ -17,3 +17,6 @@ install:
 
 makemigrations:
 	uv run python src/manage.py makemigrations
+
+test:
+	uv run pytest

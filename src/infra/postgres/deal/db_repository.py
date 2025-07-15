@@ -3,6 +3,11 @@ from decimal import Decimal
 
 from django.db import transaction
 
+from application.tasks.deals.tasks import (
+    deal_created_emitter,
+    deal_deleted_emitter,
+    deal_updated_emitter,
+)
 from core.models import DealModel, DistributorModel, TagModel
 from domain.deals.entity import DealEntity
 from domain.deals.repository import DealRepository
@@ -41,7 +46,11 @@ class DealRepositoryDB(DealRepository):
         if tags:
             deal_model.tags.set(tags)
 
-        return DealEntity.from_model(deal_model)
+        entity = DealEntity.from_model(deal_model)
+
+        # Emit the created deal event.
+        deal_created_emitter.delay(entity.id)
+        return entity
 
     def get_one(self, deal_id: int) -> DealEntity | None:
         """Retrieve a deal by its ID."""
@@ -96,13 +105,21 @@ class DealRepositoryDB(DealRepository):
         # Update the deal attributes.
         deal.updated_at = datetime.now()
         deal.save()
+        entity = DealEntity.from_model(deal)
 
-        return DealEntity.from_model(deal)
+        # Emit the updated deal event.
+        deal_updated_emitter.delay(entity.id)
+        return entity
 
     def delete(self, deal_id: int) -> bool:
         """Delete a deal by its ID."""
         deal = self.deal_manager.filter(id=deal_id).first()
         if deal:
+            deal_id = deal.id
             deal.delete()
+
+            # Emit the deleted deal event.
+            deal_deleted_emitter.delay(deal_id)
+
             return True
         return False
