@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.test import TestCase
 
 from core.models import DistributorModel, TagModel
-from infra.postgres.deal.db_repository import DealRepositoryDB
+from infra.db.deal.db_repository import DealRepositoryDB
 
 
 class DealRepositoryDBIntegrationTest(TestCase):

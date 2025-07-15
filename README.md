@@ -112,6 +112,6 @@ src/
 │   └── tasks/             # Celery tasks
 ├── domain/                # Domain entities and interfaces
 └── infra/                 # Infrastructure (database, external services)
-    ├── postgres/          # Database repositories
+    ├── db/                # Database repositories
     └── celery/            # Celery configuration
 ```
