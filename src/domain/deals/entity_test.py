@@ -31,7 +31,7 @@ class TestDealEntity(unittest.TestCase):
             company_id=1,
             distributor_id=None,
             tags=None,
-            value=None,
+            value=Decimal(100.5),
         )
         self.assertEqual(str(entity), "Test Deal (1)")
 

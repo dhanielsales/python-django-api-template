@@ -1,6 +1,7 @@
 from decimal import Decimal
+from typing import Annotated
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from core.models import DealModel
 
@@ -13,7 +14,7 @@ class DealEntity(BaseModel):
     company_id: int
     distributor_id: int | None
     tags: list[int] | None
-    value: Decimal | None
+    value: Annotated[Decimal, Field(gt=0)]
 
     def __str__(self) -> str:
         """Return the string representation of the deal."""
