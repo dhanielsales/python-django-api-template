@@ -51,7 +51,7 @@ Start Django development server
 make runserver
 ```
 
-# Start Celery worker (optional)
+Start Celery worker (optional)
 
 ```bash
 make runcelery
