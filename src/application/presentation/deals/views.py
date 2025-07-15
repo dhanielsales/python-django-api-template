@@ -8,7 +8,7 @@ from application.usecase.deals.delete_deal import DeleteDealUseCase
 from application.usecase.deals.get_all_deals import GetAllDealsUseCase
 from application.usecase.deals.get_deal_by_id import GetDealByIdUseCase
 from application.usecase.deals.update_deal import UpdateDealUseCase
-from infra.db.deal.db_repository import DealRepositoryDB
+from infra.db.deals.db_repository import DealRepositoryDB
 
 from .serializers import (
     DealCreateSerializer,
