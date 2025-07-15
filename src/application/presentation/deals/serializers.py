@@ -40,3 +40,9 @@ class DealSerializer(serializers.Serializer):
 
     id = serializers.IntegerField()
     title = serializers.CharField(max_length=255)
+    company_id = serializers.IntegerField()
+    value = serializers.DecimalField(max_digits=12, decimal_places=2)
+    tags = serializers.ListField(
+        child=serializers.IntegerField(), required=False, allow_null=True
+    )
+    distributor_id = serializers.IntegerField(required=False, allow_null=True)

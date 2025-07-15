@@ -18,5 +18,14 @@ install:
 makemigrations:
 	uv run python src/manage.py makemigrations
 
+migrate:
+	uv run python src/manage.py migrate
+
 test:
 	uv run pytest
+
+runcelery:
+	cd src && uv run celery -A config worker --loglevel=info
+
+runserver:
+	uv run python src/manage.py runserver

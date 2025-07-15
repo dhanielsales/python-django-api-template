@@ -26,14 +26,39 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-etpsgyun^sl!=r7(ide(nc_sv@465ukux1cr_*+z%_jp1@*o44"
+SECRET_KEY = "django-insecure-etpsgyun^sl!=r7(ide(nc_sv@465ukux1cr_*+z%_jp1@*o44"  # noqa: S105
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CELERY_TASK_ALWAYS_EAGER = True
+# Django URL configuration
+APPEND_SLASH = False  # Allow URLs without trailing slash for API endpoints
+
+# Celery Configuration
+# Using memory broker for development (no external broker required)
+CELERY_BROKER_URL = "memory://"
+CELERY_RESULT_BACKEND = "django-db"
+
+# Alternative Redis configuration (commented out due to compatibility issues)
+# CELERY_BROKER_URL = "redis://localhost:6379/0"  # Using Redis as broker
+# CELERY_RESULT_BACKEND = "redis://localhost:6379/0"  # Store results in Redis
+
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "UTC"
+CELERY_TASK_ALWAYS_EAGER = True  # Execute tasks synchronously for testing
+CELERY_TASK_EAGER_PROPAGATES = True
+
+# Database broker configuration for SQLite
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_BROKER_TRANSPORT_OPTIONS: dict[str, Any] = {
+    "visibility_timeout": 3600,
+    "fanout_prefix": True,
+    "fanout_patterns": True,
+}
 
 # Application definition
 
@@ -46,6 +71,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Django REST Framework
     "rest_framework",
+    # Celery
+    "django_celery_beat",
+    "django_celery_results",
+    # Apps
     "core",
     "infra",
     "application",
