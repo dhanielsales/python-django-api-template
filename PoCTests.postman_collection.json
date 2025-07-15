@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "f2bac48a-81e3-467a-b379-83863ed40147",
+		"name": "PoC Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11106795"
+	},
+	"item": [
+		{
+			"name": "Index",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/deals/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"deals",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
