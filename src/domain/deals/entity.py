@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from pydantic import BaseModel
 
-from src.django.models import DealModel
+from core.models import DealModel
 
 
 class DealEntity(BaseModel):

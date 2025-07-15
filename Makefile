@@ -16,4 +16,4 @@ install:
 	uv sync
 
 makemigrations:
-	cd src/django && uv run python manage.py makemigrations
+	uv run python src/manage.py makemigrations

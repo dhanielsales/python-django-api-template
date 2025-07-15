@@ -1,7 +1,7 @@
 from decimal import Decimal
 from typing import Protocol
 
-from src.domain.deals.entity import DealEntity
+from domain.deals.entity import DealEntity
 
 
 class DealRepository(Protocol):
@@ -11,18 +11,18 @@ class DealRepository(Protocol):
         self,
         title: str,
         company_id: int,
-        distributor_id: int | None,
+        value: Decimal,
         tags: list[int] | None,
-        value: float | None,
+        distributor_id: int | None,
     ) -> DealEntity:
         """Create a new deal.
 
         Args:
             title: The title of the deal
             company_id: ID of the associated company
-            distributor_id: Optional ID of the associated distributor
+            value: Value of the deal
             tags: Optional list of tag IDs to associate with the deal
-            value: Optional value of the deal
+            distributor_id: Optional ID of the associated distributor
 
         Returns:
             DealEntity: The created deal entity

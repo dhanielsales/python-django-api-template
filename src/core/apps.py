@@ -5,5 +5,5 @@ class AppConfig(DjangoAppConfig):
     """Configuration for the app application."""
 
     default_auto_field = "django.db.models.BigAutoField"
-    name = "__project__"  # This should match your app directory name
+    name = "core"  # This should match your app directory name
     verbose_name = "Project App"  # Optional: human-readable name

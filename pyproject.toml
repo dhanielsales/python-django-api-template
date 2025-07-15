@@ -5,6 +5,7 @@ dependencies = [
   "django-stubs-ext>=5.2.1",
   "django-stubs[compatible-mypy]>=5.1.0",
   "djangorestframework>=3.16.0",
+  "djangorestframework-stubs[compatible-mypy]>=3.16.1",
   "pydantic>=2.11.7",
   "pytest>=8.4.1",
 ]
@@ -21,13 +22,6 @@ dev = [
   "ruff>=0.11.13",
   "types-python-dateutil>=2.9.0.20250708",
 ]
-
-[tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "src.django.config.test_settings"
-addopts = "--reuse-db"
-python_classes = ["Test*"]
-python_files = ["tests.py", "test_*.py", "*_test.py"]
-python_functions = ["test_*"]
 
 [tool.ruff.lint.per-file-ignores]
 "**/migrations/*.py" = ["F403", "D101"]
@@ -76,7 +70,7 @@ suppress-dummy-args = false
 disallow_incomplete_defs = true
 disallow_untyped_defs = true
 files = ["src"]
-plugins = ["mypy_django_plugin.main"]
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
 python_version = "3.13"
 strict = true
 
@@ -85,10 +79,10 @@ ignore_errors = true
 module = "*.migrations.*"
 
 [tool.django-stubs]
-django_settings_module = "src.django.config.settings"
+django_settings_module = "src.config.settings"
 
 [[tool.mypy.overrides]]
 ignore_errors = true
 module = [
-  "__project__.*",
+  "core.*",
 ]

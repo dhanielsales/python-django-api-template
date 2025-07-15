@@ -1,11 +1,11 @@
 from datetime import datetime
 from decimal import Decimal
 
-from src.django.models import DealModel, DistributorModel, TagModel
-from src.domain.deals.entity import DealEntity
-from src.domain.deals.repository import DealRepository
-
 from django.db import transaction
+
+from core.models import DealModel, DistributorModel, TagModel
+from domain.deals.entity import DealEntity
+from domain.deals.repository import DealRepository
 
 
 class DealRepositoryDB(DealRepository):
@@ -21,22 +21,25 @@ class DealRepositoryDB(DealRepository):
         self.distributor_manager = DistributorModel._default_manager
         self.tags_manager = TagModel._default_manager
 
+    @transaction.atomic
     def create(
         self,
         title: str,
         company_id: int,
-        distributor_id: int | None,
+        value: Decimal,
         tags: list[int] | None,
-        value: float | None,
+        distributor_id: int | None,
     ) -> DealEntity:
         """Create a new deal."""
         deal_model = self.deal_manager.create(
             title=title,
             company_id=company_id,
             distributor_id=distributor_id,
-            tags=tags,
             value=value,
         )
+
+        if tags:
+            deal_model.tags.set(tags)
 
         return DealEntity.from_model(deal_model)
 
@@ -68,19 +71,19 @@ class DealRepositoryDB(DealRepository):
         if not deal:
             raise ValueError(f"Deal with ID {deal_id} does not exist.")
 
-        if title is None:
-            title = deal.title
+        if title is not None:
+            deal.title = title
 
-        if value is None:
-            value = deal.value
+        if value is not None:
+            deal.value = value
 
-        if tags is None:
+        if tags is not None:
             # Delete all tags associated with the deal.
             deleted_tags = deal.tags.all()
             deleted_tags.delete()
 
             new_tags = self.tags_manager.filter(id__in=tags)
-            deal.tags = new_tags
+            deal.tags.set(new_tags)
 
         if distributor_id:
             # Ensure the distributor exists.

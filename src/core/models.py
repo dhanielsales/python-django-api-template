@@ -25,7 +25,9 @@ class CompanyModel(BaseModel):
     """Represents a company entity with basic information and timestamps."""
 
     name: "models.CharField[str, str]" = models.CharField(max_length=255)
-    address: "models.TextField[str, str]" = models.TextField(blank=True)
+    address: "models.TextField[str, str | None]" = models.TextField(
+        blank=True, null=True
+    )  # Demonstrate this
 
     def __str__(self) -> str:
         """Return the string representation of the company (its name)."""
