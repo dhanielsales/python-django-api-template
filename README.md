@@ -21,12 +21,18 @@ A simple Django REST API template with clean architecture, async task processing
 
 ## 🛠️ Quick Start
 
-### 1. Setup
+### 1. Setup and Tests
 
 Install dependencies
 
 ```bash
 uv sync
+```
+
+Running tests
+
+```bash
+make test
 ```
 
 ### 2. Database Setup
